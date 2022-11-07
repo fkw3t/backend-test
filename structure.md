@@ -28,16 +28,17 @@
         * payer_wallet_id: varchar(uuid)
         * payee_wallet_id: varchar(uuid)
         * amount: decimal
-* [] entity
-    * [] relationships
-        - [] user:
+
+* [x] entity
+    * [x] relationships
+        - [x] user:
             - has one wallet
-        - [] seller:
+        - [x] seller:
             - has one wallet
-        - [] wallet:
+        - [x] wallet:
             - belongs to user
             - has many transactions
-        - [] transaction:
+        - [x] transaction:
             - has one payer
             - has one payee
 

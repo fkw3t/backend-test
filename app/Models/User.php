@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Walletable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Walletable;
 
     protected $keyType = 'string';
     public $incrementing = false;
@@ -46,5 +47,5 @@ class User extends Authenticatable implements JWTSubject
                 preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $value) :
                 preg_replace("/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/", "\$1.\$2.\$3/\$4-\$5", $value)
         );
-    }
+    }    
 }

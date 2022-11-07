@@ -30,7 +30,7 @@ class UserFactory extends Factory
         }
 
         return [
-            'name' => fake()->name(),
+            'name' => fake()->firstName() . ' ' . fake()->lastName(),
             'person_type' => $person_type,
             'document_id' => $document_id,
             'email' => fake()->unique()->safeEmail(),
