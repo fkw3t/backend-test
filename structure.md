@@ -32,11 +32,11 @@
 * [x] entity
     * [x] relationships
         - [x] user:
-            - has one wallet
+            - has one wallet(morph)
         - [x] seller:
-            - has one wallet
+            - has one wallet(morph)
         - [x] wallet:
-            - belongs to user
+            - belongs to user(morph)
             - has many transactions
         - [x] transaction:
             - has one payer
