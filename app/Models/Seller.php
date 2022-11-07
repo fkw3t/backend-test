@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Ramsey\Uuid\Uuid;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Seller extends Model
+class Seller extends Authenticatable implements JWTSubject
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $keyType = 'string';
     public $incrementing = false;
@@ -25,8 +26,13 @@ class Seller extends Model
         'password'
     ];
 
-    // protected static function booted()
-    // {
-    //     static::creating(fn(Seller $seller) => $seller->id = (string) Uuid::uuid4());
-    // }
+    public function getJWTIdentifier(): mixed
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims(): array
+    {
+        return [];
+    }
 }

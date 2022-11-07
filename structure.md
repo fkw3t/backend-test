@@ -42,11 +42,10 @@
             - has one payee
 
 * [] endpoints structure
-    * [] auth
-        * [] register 
-        * [] login 
-        * [] logout
-        * [] token stats
+    * [x] auth
+        * [x] register 
+        * [x] login 
+        * [x] logout
     * [] transactions
         * [] list self transactions 
         * [] make transaction
@@ -57,7 +56,7 @@
 * [] docker
 
 obs:
-- [] use uuid for data security.
+- [x] use uuid for data security.
 - [] use services e repository layers.
 - [] use form requests.
 - [] use api resources.

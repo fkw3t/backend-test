@@ -19,9 +19,7 @@ return new class extends Migration
             $table->enum('person_type', ['fisical', 'legal']);
             $table->string('document_id', 14)->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
