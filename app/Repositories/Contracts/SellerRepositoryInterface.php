@@ -6,9 +6,9 @@ use Illuminate\Support\Collection;
 
 interface SellerRepositoryInterface
 {
-    public function getSeller(string $id): object;
-    public function listSellers(): array|Collection;
-    public function createSeller(array $data): bool|object;
-    public function editSeller(string $id, array $data): bool|object;
-    public function deleteSeller(string $id): bool;
+    public function get(string $id): ?object;
+    public function listAll(): array|Collection;
+    public function create(array $data): bool|object;
+    public function edit(string $id, array $data): bool|object;
+    public function delete(string $id): bool;
 }

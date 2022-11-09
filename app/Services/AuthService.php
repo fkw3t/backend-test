@@ -9,15 +9,26 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Access\AuthorizationException;
 use PHPUnit\Framework\InvalidDataProviderException;
+use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\Contracts\SellerRepositoryInterface;
+use App\Repositories\Contracts\WalletRepositoryInterface;
 
 final class AuthService
 {
-    public function register(string $provider, array $payload): object
+    public function __construct(
+        private UserRepositoryInterface $userRepository,
+        private SellerRepositoryInterface $sellerRepository,
+        private WalletRepositoryInterface $walletRepository
+    ){}
+
+    public function register(string $provider, array $payload): void
     {
-        $provider = $this->getProvider($provider);
         $payload['password'] = Hash::make($payload['password']);
 
-        return $provider->create($payload);
+        $provider = $this->getProvider($provider);
+        $entity = $provider->create($payload);
+        dd($this->walletRepository->create($provider::class, $entity->id));
+        
     }
 
     public function login(string $provider, array $credentials)
@@ -38,13 +49,13 @@ final class AuthService
         Auth::guard($provider)->logout();
     }
 
-    private function getProvider(string $provider): Model
+    private function getProvider(string $provider): UserRepositoryInterface|SellerRepositoryInterface
     {
         if($provider === 'user'){
-            return new User();
+            return $this->userRepository;
         }
         elseif($provider === 'seller'){
-            return new Seller();
+            return $this->sellerRepository;
         }
 
         throw new InvalidDataProviderException('Invalid provider');

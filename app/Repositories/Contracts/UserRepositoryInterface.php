@@ -7,9 +7,9 @@ use Illuminate\Support\Collection;
 
 interface UserRepositoryInterface
 {
-    public function getUser(string $id): object;
-    public function listUsers(): array|Collection;
-    public function createUser(array $data): bool|object;
-    public function editUser(string $id, array $data): bool;
-    public function deleteUser(string $id): bool;
+    public function get(string $id): ?object;
+    public function listAll(): array|Collection;
+    public function create(array $data): bool|object;
+    public function edit(string $id, array $data): bool;
+    public function delete(string $id): bool;
 }

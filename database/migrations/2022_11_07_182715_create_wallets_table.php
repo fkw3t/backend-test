@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('walletable_id');
             $table->string('walletable_type');
-            $table->decimal('balance');
+            $table->decimal('balance')->default(0);
             $table->timestamps();
         });
     }

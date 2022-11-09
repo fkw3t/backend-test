@@ -227,13 +227,14 @@ class AuthControllerTest extends TestCase
         // arrange
         $provider = 'seller';
         $seller = Seller::factory()->create();
-        Auth::guard($provider)->attempt([
+        $token = 'Bearer ' . Auth::guard($provider)->attempt([
             'email' => $seller->email,
             'password' => '123',
         ]);
 
         // act
-        $response = $this->post("/api/logout/{$provider}");
+        $response = $this->withHeader('Authorization', $token)
+            ->post("/api/logout/{$provider}");
 
         // assert
         $response->assertStatus(200)

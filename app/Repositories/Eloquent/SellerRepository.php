@@ -8,28 +8,28 @@ use Illuminate\Support\Collection;
 
 class SellerRepository implements SellerRepositoryInterface
 {
-    public function getSeller(string $id): object
+    public function get(string $id): ?object
     {
         return Seller::find($id);
     }
 
-    public function listSellers(): array|Collection
+    public function listAll(): array|Collection
     {
         return Seller::all();
     }
 
-    public function createSeller(array $data): bool|object
+    public function create(array $data): bool|object
     {
         return Seller::create($data);
     }
 
-    public function editSeller(string $id, array $data): bool|object
+    public function edit(string $id, array $data): bool|object
     {
         $seller = Seller::find($id);
         return $seller->update($data);
     }
 
-    public function deleteSeller(string $id): bool
+    public function delete(string $id): bool
     {
         return Seller::delete($id);
     }
