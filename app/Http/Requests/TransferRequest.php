@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 use App\Rules\RegisteredProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Http\Response;
-use Illuminate\Validation\Rule;
 
 class TransferRequest extends FormRequest
 {
@@ -18,8 +19,7 @@ class TransferRequest extends FormRequest
      */
     public function authorize()
     {
-        # todo: add policy
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -30,8 +30,7 @@ class TransferRequest extends FormRequest
     public function rules()
     {
         return [
-            'payer_id' => ['required', 'uuid', new RegisteredProvider],
-            'payee_id' => ['required', 'uuid', new RegisteredProvider],
+            'payee_id' => ['required', new RegisteredProvider],
             'amount' => ['required', 'numeric', 'min:0'],
             'description' => ['string', 'max:256']
         ];

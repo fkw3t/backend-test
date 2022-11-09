@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Exceptions\UnauthorizedTransaction;
+use App\Exceptions\UnavailableBalanceException;
+use App\Exceptions\UnavailableNotificationServiceException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use App\Exceptions\UnavailableTransactionAuthorizingServiceException;
 
 class Handler extends ExceptionHandler
 {
@@ -22,7 +26,10 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
-        //
+        UnavailableBalanceException::class,
+        UnauthorizedTransactionException::class,
+        UnavailableNotificationServiceException::class,
+        UnavailableTransactionAuthorizingServiceException::class
     ];
 
     /**
