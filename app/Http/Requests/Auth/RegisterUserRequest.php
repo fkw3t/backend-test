@@ -25,12 +25,18 @@ final class RegisterUserRequest extends FormRequest
             'person_type' => ['required', 'string', Rule::in(['fisical', 'legal'])],
             'document_id' => [
                 'required',
-                'unique:users,sellers',
+                'unique:users',
+                'unique:sellers',
                 'numeric',
                 new CpfOrCnpj,
                 new PersonType($this->request->get('person_type'))
             ],
-            'email' => ['required', 'unique:users,sellers', 'email'],
+            'email' => [
+                'required',
+                'unique:users',
+                'unique:sellers',
+                'email'
+            ],
             'password' => ['required', 'string'],
         ];
     }
