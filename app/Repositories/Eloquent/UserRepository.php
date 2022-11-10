@@ -8,9 +8,9 @@ use Illuminate\Support\Collection;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public function get(string $id):object
+    public function get(string $userId):object
     {
-        return User::find($id);
+        return User::find($userId);
     }
 
     public function listAll(): array|Collection
@@ -23,15 +23,15 @@ class UserRepository implements UserRepositoryInterface
         return User::create($data);
     }
 
-    public function edit(string $id, array $data): bool
+    public function edit(string $userId, array $data): bool
     {
-        $user = User::find($id);
+        $user = User::find($userId);
 
         return $user->update($data);
     }
 
-    public function delete(string $id): bool
+    public function delete(string $userId): bool
     {
-        return User::delete($id);
+        return User::delete($userId);
     }
 }

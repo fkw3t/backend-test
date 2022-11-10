@@ -5,9 +5,9 @@ namespace App\Exceptions;
 use Throwable;
 use App\Exceptions\UnauthorizedTransaction;
 use App\Exceptions\UnavailableBalanceException;
+use App\Exceptions\UnavailableTransactionServiceException;
 use App\Exceptions\UnavailableNotificationServiceException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use App\Exceptions\UnavailableTransactionAuthorizingServiceException;
 
 class Handler extends ExceptionHandler
 {
@@ -29,7 +29,7 @@ class Handler extends ExceptionHandler
         UnavailableBalanceException::class,
         UnauthorizedTransactionException::class,
         UnavailableNotificationServiceException::class,
-        UnavailableTransactionAuthorizingServiceException::class
+        UnavailableTransactionServiceException::class
     ];
 
     /**

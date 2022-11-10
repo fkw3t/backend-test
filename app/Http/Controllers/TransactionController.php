@@ -12,7 +12,7 @@ use App\Exceptions\UnavailableBalanceException;
 use PHPUnit\Framework\InvalidDataProviderException;
 use App\Exceptions\UnauthorizedTransactionException;
 use App\Exceptions\UnavailableNotificationServiceException;
-use App\Exceptions\UnavailableTransactionAuthorizingServiceException;
+use App\Exceptions\UnavailableTransactionServiceException;
 
 class TransactionController extends Controller
 {
@@ -86,7 +86,7 @@ class TransactionController extends Controller
             return response()->json([
                 'message' => $e->getMessage()
             ], 403);            
-        } catch (UnavailableTransactionAuthorizingServiceException $e) {
+        } catch (UnavailableTransactionServiceException $e) {
             return response()->json([
                 'message' => $e->getMessage()
             ], 503);

@@ -15,7 +15,7 @@ use App\Repositories\Contracts\UserRepositoryInterface;
 use App\Repositories\Contracts\SellerRepositoryInterface;
 use App\Repositories\Contracts\WalletRepositoryInterface;
 use App\Repositories\Contracts\TransactionRepositoryInterface;
-use App\Exceptions\UnavailableTransactionAuthorizingServiceException;
+use App\Exceptions\UnavailableTransactionServiceException;
 use App\Models\Wallet;
 
 class TransactionService
@@ -40,8 +40,8 @@ class TransactionService
         $transaction = DB::transaction(function () use($payload): Transaction {
 
             $transaction = $this->transactionRepository->create($payload);
-            $x = $transaction->payerWallet->withdraw($payload['amount']);
-            $y = $transaction->payeeWallet->deposit($payload['amount']);
+            $transaction->payerWallet->withdraw($payload['amount']);
+            $transaction->payeeWallet->deposit($payload['amount']);
 
             return $transaction;
         });
@@ -61,7 +61,7 @@ class TransactionService
         $response = Http::get('https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6');
     
         if($response->failed()){
-            throw new UnavailableTransactionAuthorizingServiceException('Transaction authorizing service is unavailable', 503);
+            throw new UnavailableTransactionServiceException('Transaction authorizing service is unavailable', 503);
         }
         if($response->json('message') != 'Autorizado'){
             throw new UnauthorizedTransactionException('Your transaction was not authorized', 403);

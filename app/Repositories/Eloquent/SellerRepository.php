@@ -8,9 +8,9 @@ use Illuminate\Support\Collection;
 
 class SellerRepository implements SellerRepositoryInterface
 {
-    public function get(string $id): ?object
+    public function get(string $sellerId): ?object
     {
-        return Seller::find($id);
+        return Seller::find($sellerId);
     }
 
     public function listAll(): array|Collection
@@ -23,14 +23,14 @@ class SellerRepository implements SellerRepositoryInterface
         return Seller::create($data);
     }
 
-    public function edit(string $id, array $data): bool|object
+    public function edit(string $sellerId, array $data): bool|object
     {
-        $seller = Seller::find($id);
+        $seller = Seller::find($sellerId);
         return $seller->update($data);
     }
 
-    public function delete(string $id): bool
+    public function delete(string $sellerId): bool
     {
-        return Seller::delete($id);
+        return Seller::delete($sellerId);
     }
 }
