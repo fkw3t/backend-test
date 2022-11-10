@@ -24,9 +24,10 @@ docker-compose up -d
 <h4>configs/dependencies:</h4>
 
 ```
-docker exec app php artisan key:generate
 docker exec app composer install
-docker exec app php artisan jwt:key
+docker exec app php artisan key:generate
+docker exec app php artisan migrate
+docker exec app php artisan jwt:secret
 
 # now your application is hosted in http://127.0.0.1:8001 
 ```
