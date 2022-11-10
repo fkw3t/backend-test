@@ -50,8 +50,8 @@
     * [x] transactions
         * [x] make transaction
 * [x] tests
-* [] documentation with swagger
-* [] docker
+* [x] documentation with swagger
+* [x] docker
 
 obs:
 - [x] use uuid for data security.
