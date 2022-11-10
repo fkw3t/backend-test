@@ -20,6 +20,51 @@ class TransactionController extends Controller
         private TransactionService $service
     ){}
 
+    /**
+     * @OA\Post(
+     *  tags={"transactions"},
+     *  path="/api/transaction/transfer",
+     *  operationId="transaction",
+     *  summary="make a transfer",
+     *  @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 @OA\Property(
+     *                     property="payee_id",
+     *                     type="string"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="amount",
+     *                     type="decimal"
+     *                 ),
+     *                 @OA\Property(
+     *                     property="description",
+     *                     type="string"
+     *                 ),
+     *                 example={
+     *                          "payee_id": "4d17e89f-e3c6-468a-8c86-3f9ce3860697",
+     *                          "amount": 30.5,
+     *                          "description": "some transaction"
+     *                  }
+     *             )
+     *         )
+     *     ),
+     *  @OA\Response(response="200",
+     *    description="Success",
+     *  ),
+     *  @OA\Response(response="401",
+     *    description="Insufficient balance account",
+     *  ),
+     *  @OA\Response(response="403",
+     *    description="Sellers cant make transfers | You transaction was not authorized",
+     *  ),
+     *  @OA\Response(response="503",
+     *    description="Transaction authorizing service is unavailable | Notification service is unavailable now",
+     *  ),
+     *  security={{ "apiAuth": {} }},
+     * )
+     */
     public function transfer(TransferRequest $request): JsonResponse
     {
         try {

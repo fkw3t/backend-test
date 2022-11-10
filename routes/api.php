@@ -17,10 +17,10 @@ use App\Http\Controllers\TransactionController;
 
 Route::post('/register/{provider}', [AuthController::class, 'register']);
 Route::post('/login/{provider}', [AuthController::class, 'login']);
-Route::post('/logout/{provider}', [AuthController::class, 'logout']);
 
 Route::group([
     'middleware' => 'api'
 ], function ($router) {
     Route::post('/transaction/transfer', [TransactionController::class, 'transfer']);
+    Route::post('/logout/{provider}', [AuthController::class, 'logout']);
 });

@@ -1,0 +1,234 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "backend challenge - docs",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/register/{provider}": {
+            "post": {
+                "tags": [
+                    "authentication"
+                ],
+                "summary": "create account to access the system",
+                "operationId": "create account",
+                "parameters": [
+                    {
+                        "name": "provider",
+                        "in": "path",
+                        "description": "provider name(user, seller)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "person_type": {
+                                        "type": "string"
+                                    },
+                                    "document_id": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "name": "Tiago Ferreira",
+                                    "person_type": "fisical",
+                                    "document_id": "12345678901",
+                                    "email": "mail@mail.com",
+                                    "password": "1234678"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "422": {
+                        "description": "Invalid provider"
+                    }
+                }
+            }
+        },
+        "/api/login/{provider}": {
+            "post": {
+                "tags": [
+                    "authentication"
+                ],
+                "summary": "make login to get authenticated",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "name": "provider",
+                        "in": "path",
+                        "description": "provider name(user, seller)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "test@mail.com",
+                                    "password": "test123"
+                                }
+                            }
+                        },
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "email": "mail@mail.com",
+                                    "password": "1234678"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Invalid Credentials"
+                    },
+                    "422": {
+                        "description": "Invalid provider"
+                    }
+                }
+            }
+        },
+        "/api/logout/{provider}": {
+            "post": {
+                "tags": [
+                    "authentication"
+                ],
+                "summary": "logout and revoke token",
+                "operationId": "logout",
+                "parameters": [
+                    {
+                        "name": "provider",
+                        "in": "path",
+                        "description": "provider name(user, seller)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/transaction/transfer": {
+            "post": {
+                "tags": [
+                    "transactions"
+                ],
+                "summary": "make a transfer",
+                "operationId": "transaction",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "payee_id": {
+                                        "type": "string"
+                                    },
+                                    "amount": {
+                                        "type": "decimal"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "payee_id": "4d17e89f-e3c6-468a-8c86-3f9ce3860697",
+                                    "amount": 30.5,
+                                    "description": "some transaction"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Insufficient balance account"
+                    },
+                    "403": {
+                        "description": "Sellers cant make transfers | You transaction was not authorized"
+                    },
+                    "503": {
+                        "description": "Transaction authorizing service is unavailable | Notification service is unavailable now"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "apiAuth": {
+                "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "name": "Token",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    }
+}
