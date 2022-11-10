@@ -67,10 +67,7 @@ class TransactionControllerTest extends TestCase
                 'walletable_type' => User::class
             ]);
 
-        $token = 'Bearer ' . Auth::guard('seller')->attempt([
-            'email' => $seller->email,
-            'password' => '123',
-        ]);
+        $token = 'Bearer ' . Auth::login($seller);
 
         // act
         $response = $this->withHeader('Authorization', $token)

@@ -51,8 +51,7 @@ class TransactionService
 
     private function checkPayer(): void
     {
-        $seller = new Seller();
-        if(Auth::user() instanceof $seller){
+        if(Auth::guard('seller')->user()){
             throw new InvalidDataProviderException('Sellers cant make transfers', 403);
         }
     }

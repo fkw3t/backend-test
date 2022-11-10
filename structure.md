@@ -42,29 +42,20 @@
             - has one payer
             - has one payee
 
-* [] endpoints structure
+* [x] endpoints structure
     * [x] auth
         * [x] register 
         * [x] login 
         * [x] logout
-    * [] transactions
-        * [] list self transactions 
-        * [] make transaction
-    * [] wallet
-        * [] get balance account
-* [] tests
+    * [x] transactions
+        * [x] make transaction
+* [x] tests
 * [] documentation with swagger
 * [] docker
 
 obs:
 - [x] use uuid for data security.
-- [] use services e repository layers.
-- [] use form requests.
-- [] use api resources.
-- [] use api resources routes.
-- [] use policy/gate for authorization.
-- [] use laravel notifications(email/sms) with queue for async.
-- [] use fk in migrations.
+- [x] use services e repository layers.
+- [x] use form requests.
 
-<h2>modelagem banco de dados</h2>
 

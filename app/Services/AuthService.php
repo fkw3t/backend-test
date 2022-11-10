@@ -27,8 +27,7 @@ final class AuthService
 
         $provider = $this->getProvider($provider);
         $entity = $provider->create($payload);
-        dd($this->walletRepository->create($provider::class, $entity->id));
-        
+        $this->walletRepository->create($entity::class, $entity->id);
     }
 
     public function login(string $provider, array $credentials)
